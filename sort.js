@@ -1,6 +1,7 @@
 // Numbers to Sort
 var unsortedArr = [3, 6, 7, 9, 8, 2, 1, 4, 5];
 var unsortedArr2 = [3, 6, 7, 9, 8, 2, 1, 4, 5];
+var almostSortedArr = [2, 1, 3, 4, 5, 6, 7, 8, 8];
 
 function bubbleSortR(arr) {
   'use strict';
@@ -72,6 +73,40 @@ function bubbleSortW(arr) {
 }
 
 
-console.log(unsortedArr);
-console.log(bubbleSortR(unsortedArr));
-console.log(bubbleSortW(unsortedArr2));
+function selectionSort(arr) {
+  'use strict';
+
+  function loopAndMoveLowestToFront(arrToSort, start) {
+    let lowestVal = Number.POSITIVE_INFINITY;
+    let lowestIndex;
+    for (var i = start; i < arrToSort.length; i++) {
+      if (arrToSort[i] < lowestVal) {
+        lowestVal = arrToSort[i];
+        lowestIndex = i;
+      }
+
+      if (i === arrToSort.length - 1) {
+        // Remove the lowest Number
+        arrToSort.splice(lowestIndex, 1);
+
+        // Insert it at the beginning
+        arrToSort.splice(start, 0, lowestVal);
+
+        console.log('array', arrToSort);
+      }
+    }
+  }
+
+  arr.forEach( (element, index, array) => {
+    loopAndMoveLowestToFront(array, index);
+  });
+
+  return arr;
+}
+
+
+// console.log(unsortedArr);
+// console.log(bubbleSortR(unsortedArr));
+// console.log(bubbleSortW(almostSortedArr));
+
+console.log(selectionSort(unsortedArr));
