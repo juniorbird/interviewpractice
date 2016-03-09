@@ -1,7 +1,8 @@
 // Numbers to Sort
 var unsortedArr = [3, 6, 7, 9, 8, 2, 1, 4, 5];
+var unsortedArr2 = [3, 6, 7, 9, 8, 2, 1, 4, 5];
 
-function bubbleSort(arr) {
+function bubbleSortR(arr) {
   'use strict';
 
   function sort(wholeArray, index, sortedState) {
@@ -22,8 +23,8 @@ function bubbleSort(arr) {
         // If the next item is smaller than the current item
         //  Save it, delete it, insert it
         let temp = wholeArray[index + 1];
-        wholeArray.splice(index + 1, 1);
-        wholeArray.splice(index, 0, temp);
+        wholeArray[index+1] = wholeArray[index];
+        wholeArray[index] = temp;
         return sort(wholeArray, index + 1, true);
       } else {
         return sort(wholeArray, index + 1, sortedState);
@@ -34,5 +35,43 @@ function bubbleSort(arr) {
 return sort(arr, 0, false);
 }
 
+
+
+function bubbleSortW(arr) {
+  // Trying with a while loop, since Chrome is highly-optimized for that
+
+  'use strict';
+
+  let len = arr.length;
+  let i = 0;
+  let tempVar;
+  let sortedYet = false;
+  let loopSorted = false;
+
+  while (sortedYet === false) {
+    while (i < len) {
+      loopSorted = false;
+      for (let n = 0; n < len; n++) {
+        if (n === len - 1) {
+          if (loopSorted === false) sortedYet = true;
+        } else {
+          if (arr[n] > arr[n + 1]) {
+            tempVar = arr[n + 1];
+            arr[n + 1] = arr[n];
+            arr[n] = tempVar;
+            loopSorted = true;
+            console.log('Warray', arr, 'index', n, 'did we sort?', loopSorted);
+          }
+
+        }
+      }
+      i++;
+    }
+  }
+  return arr;
+}
+
+
 console.log(unsortedArr);
-console.log(bubbleSort(unsortedArr));
+console.log(bubbleSortR(unsortedArr));
+console.log(bubbleSortW(unsortedArr2));
