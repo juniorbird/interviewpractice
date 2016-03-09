@@ -77,20 +77,18 @@ function selectionSort(arr) {
   'use strict';
 
   function loopAndMoveLowestToFront(arrToSort, start) {
-    let lowestVal = Number.POSITIVE_INFINITY;
-    let lowestIndex;
-    for (var i = start; i < arrToSort.length; i++) {
-      if (arrToSort[i] < lowestVal) {
-        lowestVal = arrToSort[i];
+    let lowestIndex = start;
+    let len = arrToSort.length;
+    for (var i = start; i < len; i++) {
+      if (arrToSort[i] < arrToSort[lowestIndex]) {
         lowestIndex = i;
       }
 
-      if (i === arrToSort.length - 1) {
-        // Remove the lowest Number
-        arrToSort.splice(lowestIndex, 1);
-
-        // Insert it at the beginning
-        arrToSort.splice(start, 0, lowestVal);
+      if (i === len - 1) {
+        // Remove the lowest Number + insert at beginning
+        let temp = arrToSort[lowestIndex]
+        arrToSort[lowestIndex] = arrToSort[start];
+        arrToSort[start] = temp;
 
         console.log('array', arrToSort);
       }
@@ -103,10 +101,5 @@ function selectionSort(arr) {
 
   return arr;
 }
-
-
-// console.log(unsortedArr);
-// console.log(bubbleSortR(unsortedArr));
-// console.log(bubbleSortW(almostSortedArr));
 
 console.log(selectionSort(unsortedArr));
