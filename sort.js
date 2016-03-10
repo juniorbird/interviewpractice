@@ -102,4 +102,99 @@ function selectionSort(arr) {
   return arr;
 }
 
-console.log(selectionSort(unsortedArr));
+function insertionSort(arr) {
+  'use strict';
+
+  let sortedArr = [];
+
+  function insertIntoArray(num, destArr, idx) {
+    if (!destArr[idx] || destArr[idx] > num) {
+      if (!destArr[idx]) {
+        destArr[idx] = num;
+      } else {
+        destArr[idx + 1] = destArr[idx];
+        destArr[idx] = num;
+      }
+    } else {
+      insertIntoArray(num, destArr, idx + 1);
+    }
+  }
+
+  arr.forEach( (element, index) => {
+    insertIntoArray(element, sortedArr, 0);
+    console.log(sortedArr);
+  });
+
+
+  return sortedArr;
+}
+
+function insertionSortL(arr) {
+  'use strict';
+
+  let sortedArr = [];
+
+  arr.forEach((ael) => {
+    if (sortedArr.length === 0) {
+      sortedArr[0] = ael
+    } else {
+      for (var i = 0; i < sortedArr.length; i++) {
+        if (sortedArr[i] > ael) {
+          sortedArr.splice(i, 0, ael);
+          break;
+        } else if (i === sortedArr.length -1) {
+          sortedArr.push(ael);
+          break;
+        }
+      }
+    }
+    console.log(sortedArr);
+  });
+
+
+  return sortedArr;
+}
+
+
+function mergeSort(arr) {
+  'use strict';
+
+  function splitArr(wholeArray) {
+    let len = wholeArray.length
+
+    if (len < 2) {
+      return wholeArray;
+    } else {
+      let mid = Math.floor(len/2);
+      let leftArray = wholeArray.slice(0, mid);
+      let rightArray = wholeArray.splice(mid, len);
+      return mergeVals(splitArr(leftArray), splitArr(rightArray));
+    }
+  }
+
+  function mergeVals(leftVal, rightVal) {
+    // We can assume each val is either a single number, or sorted
+    //  Pull the first off each one and compare.
+    //    Push the lower one into the output array
+    //      Repeat
+    //        If one array has no length, and the other has length, just concat
+    //          Because of the sorted thing
+    let outputArr = [];
+
+    while (leftVal.length && rightVal.length) {
+      if (leftVal[0] <= rightVal[0]) {
+        outputArr.push(leftVal.shift());
+      } else {
+        outputArr.push(rightVal.shift());
+      }
+    }
+
+    outputArr = outputArr.concat(leftVal).concat(rightVal);
+
+    return outputArr;
+  }
+
+  return splitArr(arr);
+}
+
+console.log(mergeSort(unsortedArr));
